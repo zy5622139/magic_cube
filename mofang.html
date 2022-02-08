@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/mofang.js"></script>
+<link href="static/css/mofang.css" rel="stylesheet" type="text/css" />
+<style>
+
+</style>
+<body>
+<div class="imgBox">
+    <div class="top___ top___1"></div>
+    <div class="top___ top___2"></div>
+    <div class="top___ top___3"></div>
+    <div class="top___ top___4"></div>
+    <div class="top___ top___5"></div>
+    <div class="top___ top___6"></div>
+    <div class="top___ top___7"></div>
+    <div class="top___ top___8"></div>
+    <div class="top___ top___9"></div>
+    <div class="bottom bottom1"></div>
+    <div class="bottom bottom2"></div>
+    <div class="bottom bottom3"></div>
+    <div class="bottom bottom4"></div>
+    <div class="bottom bottom5"></div>
+    <div class="bottom bottom6"></div>
+    <div class="bottom bottom7"></div>
+    <div class="bottom bottom8"></div>
+    <div class="bottom bottom9"></div>
+    <div class="left__ left__1"></div>
+    <div class="left__ left__2"></div>
+    <div class="left__ left__3"></div>
+    <div class="left__ left__4"></div>
+    <div class="left__ left__5"></div>
+    <div class="left__ left__6"></div>
+    <div class="left__ left__7"></div>
+    <div class="left__ left__8"></div>
+    <div class="left__ left__9"></div>
+    <div class="right_ right_1"></div>
+    <div class="right_ right_2"></div>
+    <div class="right_ right_3"></div>
+    <div class="right_ right_4"></div>
+    <div class="right_ right_5"></div>
+    <div class="right_ right_6"></div>
+    <div class="right_ right_7"></div>
+    <div class="right_ right_8"></div>
+    <div class="right_ right_9"></div>
+    <div class="front_ front_1"></div>
+    <div class="front_ front_2"></div>
+    <div class="front_ front_3"></div>
+    <div class="front_ front_4"></div>
+    <div class="front_ front_5"></div>
+    <div class="front_ front_6"></div>
+    <div class="front_ front_7"></div>
+    <div class="front_ front_8"></div>
+    <div class="front_ front_9"></div>
+    <div class="back__ back__1"></div>
+    <div class="back__ back__2"></div>
+    <div class="back__ back__3"></div>
+    <div class="back__ back__4"></div>
+    <div class="back__ back__5"></div>
+    <div class="back__ back__6"></div>
+    <div class="back__ back__7"></div>
+    <div class="back__ back__8"></div>
+    <div class="back__ back__9"></div>
+</div>
+<script>
+translate1 = 100;
+translate2 = 150;
+function getQueryVariable(variable){
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+function reset_color(read_color){
+    var color_dict = {'U': 'red', 'R': 'black', 'F': 'blue',
+                      'D': 'orange', 'L': 'yellow', 'B': 'green'}
+    var div_dict = {0: 'top___', 1: 'right_', 2: 'front_',
+                    3: 'bottom', 4: 'left__', 5: 'back__'}
+    if (read_color){
+        read_color = read_color.split(',')
+        $.each(read_color, function(i, v){
+            var color = v.split('')
+            $.each(color, function(ii, vv){
+                if(i == 4 || i == 5){
+                    if(((ii+1) % 3) == 1){
+                        $('.' + div_dict[i]+(ii+1+2)).css('background', color_dict[vv])
+                    }else if(((ii+1) % 3) == 0){
+                        $('.' + div_dict[i]+(ii+1-2)).css('background', color_dict[vv])
+                    }else{
+                        $('.' + div_dict[i]+(ii+1)).css('background', color_dict[vv])
+                    }
+                }else if(i == 3){
+                    if((ii+1) <= 3){
+                        $('.' + div_dict[i]+(ii+1+6)).css('background', color_dict[vv])
+                    }else if((ii+1) >= 7){
+                        $('.' + div_dict[i]+(ii+1-6)).css('background', color_dict[vv])
+                    }else{
+                        $('.' + div_dict[i]+(ii+1)).css('background', color_dict[vv])
+                    }
+                }else{
+                    $('.' + div_dict[i]+(ii+1)).css('background', color_dict[vv])
+                }
+            })
+        })
+    }
+}
+
+$(function(){
+    $.each([1,2,3,4,5,6,7,8,9], function(i, v){
+        $.each(['top___', 'bottom', 'left__', 'right_', 'front_', 'back__'], function(ii, vv){
+            var cls = '.' + vv;
+            if (vv == 'top___'){
+                transform = 'rotateX(90deg) translateZ('+translate2+'px)';
+            }else if (vv == 'bottom'){
+                transform = 'rotateX(90deg) translateZ(-'+translate2+'px)';
+            }else if (vv == 'left__'){
+                transform = 'rotateY(90deg) translateZ(-'+translate2+'px)';
+            }else if (vv == 'right_'){
+                transform = 'rotateY(90deg) translateZ('+translate2+'px)';
+            }else if (vv == 'front_'){
+                transform = 'translateZ('+translate2+'px)';
+            }else if (vv == 'back__'){
+                transform = 'translateZ(-'+translate2+'px)';
+            }
+            switch(v){
+                case 1:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX(-'+translate1+'px) translateY(-'+translate1+'px)')
+                    break;
+                case 2:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX(0px) translateY(-'+translate1+'px)')
+                    break;
+                case 3:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX('+translate1+'px) translateY(-'+translate1+'px)')
+                    break;
+                case 4:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX(-'+translate1+'px) translateY(0px)')
+                    break;
+                case 5:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX(0px) translateY(0px)')
+                    break;
+                case 6:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX('+translate1+'px) translateY(0px)')
+                    break;
+                case 7:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX(-'+translate1+'px) translateY('+translate1+'px)')
+                    break;
+                case 8:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX(0px) translateY('+translate1+'px)')
+                    break;
+                case 9:
+                    $(cls).eq(v-1).css('transform', transform + ' translateX('+translate1+'px) translateY('+translate1+'px)')
+                    break;
+            }
+        })
+    })
+    var read_color = getQueryVariable('read_color')
+    if(read_color){reset_color();}
+})
+
+</script>
+</body>
+</html>
